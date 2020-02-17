@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { AnalyticsService } from '../core/analytics/analytics.service';
 
 
 @Injectable({
@@ -11,7 +12,8 @@ export class UserData {
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
 
   constructor(
-    public storage: Storage
+    public storage: Storage,
+    private analyticsService: AnalyticsService
   ) { }
 
   hasFavorite(sessionName: string): boolean {
@@ -32,6 +34,8 @@ export class UserData {
   login(username: string): Promise<any> {
     return this.storage.set(this.HAS_LOGGED_IN, true).then(() => {
       this.setUsername(username);
+      this.analyticsService.setUserProperty('has_profile_picture', 'false');
+      this.analyticsService.setUserId('123');
       return window.dispatchEvent(new CustomEvent('user:login'));
     });
   }

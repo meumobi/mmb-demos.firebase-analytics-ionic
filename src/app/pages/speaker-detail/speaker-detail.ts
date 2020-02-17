@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConferenceData } from '../../providers/conference-data';
+import { AnalyticsService } from '../../core/analytics/analytics.service';
 
 @Component({
   selector: 'page-speaker-detail',
@@ -13,7 +14,8 @@ export class SpeakerDetailPage {
   constructor(
     private dataProvider: ConferenceData,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private analyticsService: AnalyticsService
   ) {}
 
   ionViewWillEnter() {
@@ -23,6 +25,7 @@ export class SpeakerDetailPage {
         for (const speaker of data.speakers) {
           if (speaker && speaker.id === speakerId) {
             this.speaker = speaker;
+            this.analyticsService.trackScreen(`SpeakerDetail: ${speaker.name}`);
             break;
           }
         }

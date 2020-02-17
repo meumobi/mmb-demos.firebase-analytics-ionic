@@ -4,6 +4,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ActionSheetController } from '@ionic/angular';
 
 import { ConferenceData } from '../../providers/conference-data';
+import { AnalyticsService } from '../../core/analytics/analytics.service';
 
 @Component({
   selector: 'page-speaker-list',
@@ -17,13 +18,15 @@ export class SpeakerListPage {
     public actionSheetCtrl: ActionSheetController,
     public confData: ConferenceData,
     public inAppBrowser: InAppBrowser,
-    public router: Router
+    public router: Router,
+    private analyticsService: AnalyticsService
   ) {}
 
   ionViewDidEnter() {
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
       this.speakers = speakers;
     });
+    this.analyticsService.trackScreen('SpeakerList');
   }
 
   goToSpeakerTwitter(speaker: any) {
@@ -54,7 +57,10 @@ export class SpeakerListPage {
           }
         },
         {
-          text: 'Share via ...'
+          text: 'Share via ...',
+          handler: () => {
+            this.analyticsService.logEvent('share', { content_type: 'speaker', id: speaker.id });
+          }
         },
         {
           text: 'Cancel',

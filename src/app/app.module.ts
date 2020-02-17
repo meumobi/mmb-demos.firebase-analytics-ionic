@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 
 @NgModule({
   imports: [
@@ -26,7 +27,12 @@ import { FormsModule } from '@angular/forms';
     })
   ],
   declarations: [AppComponent],
-  providers: [InAppBrowser, SplashScreen, StatusBar],
+  providers: [
+    InAppBrowser,
+    SplashScreen,
+    StatusBar,
+    FirebaseX,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
