@@ -1,5 +1,5 @@
 # mmb-demos.firebase-analytics-ionic
-**Tutorial** [Add Firebase Analytics on Native Ionic App](http://meumobi.github.io/ionic/2019/02/17/firebase-analytics-ionic.html)
+**Tutorial** [Add Firebase Analytics on Native Ionic App](http://meumobi.github.io/ionic/firebase/2020/02/17/firebase-analytics-ionic.html)
 
 ## Getting started
 
