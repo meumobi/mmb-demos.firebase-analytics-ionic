@@ -6,6 +6,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { SpeakerListPage } from './speaker-list';
 import { ConferenceData } from '../../providers/conference-data';
+import { AnalyticsService } from '../../core/analytics/analytics.service';
 
 const confDataSub = {};
 
@@ -17,6 +18,7 @@ describe('SpeakerListPage', () => {
     ]);
     const routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
     const iabSpy = jasmine.createSpyObj('InAppBrowser', ['create']);
+    const analyticsServiceSpy = jasmine.createSpyObj('AnalyticsService', ['logEvent', 'setUserProperty', 'trackScreen', 'setUserId']);
 
     TestBed.configureTestingModule({
       declarations: [SpeakerListPage],
@@ -25,7 +27,8 @@ describe('SpeakerListPage', () => {
         { provide: ActionSheetController, useValue: actionSheetSpy },
         { provide: InAppBrowser, useValue: iabSpy },
         { provide: Router, useValue: routerSpy },
-        { provide: ConferenceData, useValue: confDataSub }
+        { provide: ConferenceData, useValue: confDataSub },
+        { provide: AnalyticsService, useValue: analyticsServiceSpy },
       ]
     }).compileComponents();
   }));
